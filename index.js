@@ -33,6 +33,30 @@ var MaaS = function MaaS(options) {
 };
 
 
+MaaS.prototype.createOrg = function createorg(name, options, callback) {
+  name = name || '';
+  options = options || {};
+  options.sigToken = options.sigToken || '';
+  options.token = options.token || '';
+
+  if(!name) return callback('Org name is required');
+
+  var payload = {
+    data: {
+      name: name,
+      tapit_api_token: options.token,
+      tapit_signature_token: options.sigToken,
+    }
+  };
+
+  var url = '/organizations';
+
+  this._post(payload, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
 
 // https://developer.phunware.com/pages/viewpage.action?pageId=1114138
 MaaS.prototype.regUser = function regUser(options, callback) {
@@ -47,7 +71,7 @@ MaaS.prototype.regUser = function regUser(options, callback) {
         password: options.password || ''
       },
       'org': {
-        name: options.org || '',
+        name: options.orgName || '',
       },
       'email_url': options.email_url || '',
     }
@@ -82,8 +106,18 @@ MaaS.prototype.getUser = function getUser(userId, callback) {
  */
 // FIXME: Should this return the updated user object?
 MaaS.prototype.updateUser = function update(id, props, callback) {
+  id = id || '';
+  props = props || {};
+  callback = callback || noop;
+
+  if(!id) return callback('User id required');
+
   // FIXME: Validate props and whitelist.
-  var url = '/users/';
+  var payload = {
+    data: props
+  };
+
+  var url = '/users/' + id;
 
   this._put(payload, url, false, (function(err, res) {
     this._handleResponse(err, res, callback);
@@ -157,7 +191,7 @@ MaaS.prototype.auth = function auth(email, password, callback) {
  * @param  {Function} callback
  * @return {object}
  */
-MaaS.prototype.org = function org(id, callback) {
+MaaS.prototype.getOrg = function org(id, callback) {
   id = id || 0;
   var url = '/organizations/' + id;
 

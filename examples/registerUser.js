@@ -4,15 +4,17 @@ var keys = require('./keys.js');
 var maas = new MaaS(keys);
 
 var data = {
-  email: 'nloveridge@phunware.com',
+  email: 'nick@fusemedia.ca',
   password: 'demotime',
-  org: 'Phunware',
-  email_url: 'http://www.fusemedia.ca/verify/{key}',
+  // FIXME: Registering a user via Org name is bad - use org id.
+  orgName: 'Test Org for SSP',
+  // FIXME: email_url will not validate.
+  email_url: '',
 };
 
 maas.regUser(data, function(err, userData) {
   if(err) {
-    console.log(err);
+    console.log('ERROR:', err.error.messages);
     return;
   }
   console.log(userData);
