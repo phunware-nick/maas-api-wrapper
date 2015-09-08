@@ -20,8 +20,7 @@ describe('MaaS Class', function() {
   });
 
   it("Should have an endpoint url stored as a property", function() {
-    expect(maas._endpoint).toNotBe(null);
-    expect(maas._endpoint).toNotBe('');
+    expect(maas._endpoint).not.toBeFalsy();
   });
 
   it("Should have the createOrg method", function() {
@@ -48,4 +47,21 @@ describe('MaaS Class', function() {
     expect('authUser' in maas).toBe(true);
   });
 
+  it("Should get the user's info from the MaaS API", function() {
+    var args;
+    var callback = jasmine.createSpy('callback');
+
+    spyOn(maas, '_request').and.callFake(function() {
+      args = arguments;
+    });
+
+    spyOn(maas, 'getUser');
+    maas.getUser(61, callback);
+
+    expect(maas.getUser).toHaveBeenCalled();
+    // expect(callback).toHaveBeenCalled();
+
+  });
+
 });
+

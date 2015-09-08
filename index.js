@@ -65,7 +65,9 @@ MaaS.prototype.createOrg = function createorg(name, options, callback) {
  */
 MaaS.prototype.getOrg = function org(id, callback) {
   id = id || 0;
-  var url = '/organizations/' + id;
+
+  var url = '/organizations/';
+  url += parseInt(id, 10);
 
   this._get(null, url, false, (function(err, res) {
     this._handleResponse(err, res, callback);

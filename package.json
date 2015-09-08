@@ -10,12 +10,12 @@
     "lodash": "^3.10.1",
     "request": "^2.61.0"
   },
-  "devDependencies": {
-    "jasmine-node": "^1.14.5"
-  },
   "scripts": {
-    "test": "node ./node_modules/jasmine-node/lib/jasmine-node/cli.js specs/"
+    "test": "jasmine"
   },
   "author": "Nick Loveridge",
-  "license": "TBA"
+  "license": "TBA",
+  "devDependencies": {
+    "jasmine": "^2.3.2"
+  }
 }
