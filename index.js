@@ -23,12 +23,13 @@ var MaaS = function MaaS(options) {
   this._signature = options.signature || '';
   this._encryptKey = options.encryptKey || '';
 
+  // this._endpoint = 'http://core-api.phunware.com/v1.0';
+  this._endpoint = 'http://core-api-dev.phunware.com/v1.0';
+
   if(!this._accessKey || !this._signature ||  !this._encryptKey) {
     throw 'Access and signature keys required for MaaS authentication';
   }
 
-  // this._endpoint = 'http://core-api.phunware.com/v1.0';
-  this._endpoint = 'http://core-api-dev.phunware.com/v1.0';
 };
 
 
