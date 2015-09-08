@@ -131,14 +131,23 @@ MaaS.prototype.updateUser = function update(id, props, callback) {
 
   if(!id) return callback('User id required');
 
-  // FIXME: Validate props and whitelist.
-  var payload = {
-    data: props
-  };
-
   var url = '/users/' + id;
+  var whitelist =  [
+    'email',
+    'first_name',
+    'last_name',
+    'org_id',
+    'orgs',
+    'clients',
+    'role_id',
+    'google_id',
+    'time_zone',
+    'is_active'
+  ];
 
-  this._put(payload, url, false, (function(err, res) {
+  props = _.pick(props, whitelist);
+
+  this._put({ data: props }, url, false, (function(err, res) {
     this._handleResponse(err, res, callback);
   }).bind(this));
 };
