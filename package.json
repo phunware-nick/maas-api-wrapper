@@ -1,0 +1,19 @@
+{
+  "name": "MaaS-API-Wrapper",
+  "version": "0.0.1",
+  "description": "MaaS module public API endpoints",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "request": "^2.61.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Loveridge",
+  "license": "TBA"
+}
