@@ -13,13 +13,12 @@ describe('MaaS Get User', function() {
     maas = new MaaS(keys);
   });
 
-  it("should update the user on the MaaS API", function() {
+  it("should get the organization's info from the MaaS API", function() {
     var data = {};
     var callback = jasmine.createSpy('callback');
 
     spyOn(maas, '_request').and.callFake(function(method, payload, uri, encrypt, callback) {
       data.method = method;
-      data.payload = payload;
       data.uri = uri;
       data.encrypt = encrypt;
 
@@ -31,24 +30,14 @@ describe('MaaS Get User', function() {
       return callback(null, res);
     });
 
-    var payload = {
-      first_name: 'Bob',
-      last_name: 'Vila',
-      invalid: 'nothingHere',
-    };
+    spyOn(maas, 'getOrg').and.callThrough();
+    maas.getOrg(58, callback);
 
-    spyOn(maas, 'updateUser').and.callThrough();
-    maas.updateUser(1, payload, callback);
-
-    expect(maas.updateUser).toHaveBeenCalled();
+    expect(maas.getOrg).toHaveBeenCalled();
     expect(callback).toHaveBeenCalled();
-    expect(data.method).toBe('PUT');
-    expect(data.uri).toBe('/users/1');
+    expect(data.method).toBe('GET');
+    expect(data.uri).toBe('/organizations/58');
     expect(data.encrypt).toBe(false);
-    expect(data.payload.data.first_name).toBe('Bob');
-    expect(data.payload.data.last_name).toBe('Vila');
-    // FIXME: Build out all other prop tests.
-    expect(data.payload.data.hasOwnProperty('invalid')).toBe(false);
 
   });
 
