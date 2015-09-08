@@ -57,6 +57,23 @@ MaaS.prototype.createOrg = function createorg(name, options, callback) {
 };
 
 
+/**
+ * Get MaaS organization by id
+ * @param  {integer}  id       Organization id
+ * @param  {Function} callback
+ * @return {object}
+ */
+MaaS.prototype.getOrg = function org(id, callback) {
+  id = id || 0;
+  var url = '/organizations/' + id;
+
+  this._get(null, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
+
 
 // https://developer.phunware.com/pages/viewpage.action?pageId=1114138
 MaaS.prototype.regUser = function regUser(options, callback) {
@@ -164,7 +181,7 @@ MaaS.prototype.updateUser = function update(id, props, callback) {
  * @param  {string}   password
  * @param  {Function} callback
  */
-MaaS.prototype.auth = function auth(email, password, callback) {
+MaaS.prototype.authUser = function authUser(email, password, callback) {
   email = email || '';
   password = password || '';
   callback = callback || noop;
@@ -179,23 +196,6 @@ MaaS.prototype.auth = function auth(email, password, callback) {
   };
 
   this._get(data, url, true, (function(err, res) {
-    this._handleResponse(err, res, callback);
-  }).bind(this));
-};
-
-
-
-/**
- * Get MaaS organization by id
- * @param  {integer}  id       Organization id
- * @param  {Function} callback
- * @return {object}
- */
-MaaS.prototype.getOrg = function org(id, callback) {
-  id = id || 0;
-  var url = '/organizations/' + id;
-
-  this._get(null, url, false, (function(err, res) {
     this._handleResponse(err, res, callback);
   }).bind(this));
 };

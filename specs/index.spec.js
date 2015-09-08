@@ -24,4 +24,28 @@ describe('MaaS Class', function() {
     expect(maas._endpoint).toNotBe('');
   });
 
+  it("Should have the createOrg method", function() {
+    expect('createOrg' in maas).toBe(true);
+  });
+
+  it("Should have the getOrg method", function() {
+    expect('getOrg' in maas).toBe(true);
+  });
+
+  it("Should have the regUser method", function() {
+    expect('regUser' in maas).toBe(true);
+  });
+
+  it("Should have the getUser method", function() {
+    expect('getUser' in maas).toBe(true);
+  });
+
+  it("Should have the updateUser method", function() {
+    expect('updateUser' in maas).toBe(true);
+  });
+
+  it("Should have the authUser method", function() {
+    expect('authUser' in maas).toBe(true);
+  });
+
 });
