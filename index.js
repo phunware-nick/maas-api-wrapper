@@ -76,6 +76,34 @@ MaaS.prototype.getOrg = function org(id, callback) {
 
 
 
+MaaS.prototype.updateOrg = function updateOrg(id, props, callback) {
+  id = id || '';
+  props = props || {};
+  callback = callback || noop;
+
+  if(!id) return callback('User id required');
+
+  var url = '/organizations/';
+  url += parseInt(id, 10);
+
+  console.log(url);
+
+  var whitelist = [
+    'name',
+    'tapit_api_token',
+    'tapit_signature_token',
+    'services',
+  ];
+
+  props = _.pick(props, whitelist);
+
+  this._put({ data: props }, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
+
 
 // https://developer.phunware.com/pages/viewpage.action?pageId=1114138
 MaaS.prototype.regUser = function regUser(options, callback) {
@@ -124,7 +152,7 @@ MaaS.prototype.getUser = function getUser(userId, callback) {
  * @return {bool}
  */
 // FIXME: Should this return the updated user object?
-MaaS.prototype.updateUser = function update(id, props, callback) {
+MaaS.prototype.updateUser = function updateUser(id, props, callback) {
   id = id || '';
   props = props || {};
   callback = callback || noop;
