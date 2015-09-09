@@ -270,7 +270,7 @@ MaaS.prototype._request = function _request(method, payload, url, encrypt, callb
   };
 
   // Send the request.
-  console.log(options);
+  // console.log(options);
   request(options, callback);
 };
 
