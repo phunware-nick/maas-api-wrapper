@@ -181,6 +181,27 @@ MaaS.prototype.updateUser = function updateUser(id, props, callback) {
 };
 
 
+MaaS.prototype.changePassword = function changePassword(id, oldPwd, newPwd, callback) {
+  id = id || '';
+  oldPwd = oldPwd || '';
+  newPwd = newPwd || '';
+  callback = callback || noop;
+
+  if(!id) return callback('User id required');
+
+  var url = '/users/' + id + '/change-password';
+
+  var props = {
+    old_password: oldPwd,
+    new_password: newPwd
+  };
+
+  this._put(props, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
 // MaaS.prototype.createUser = function createUser(data, callback) {
 //   data = data || {};
 //   callback = callback || noop;
@@ -341,7 +362,7 @@ MaaS.prototype._xAuthStr = function _xAuthStr(payload, method) {
 MaaS.prototype._handleResponse = function _handleResponse(err, res, callback) {
   if(err) return callback(err);
 
-  var body = JSON.parse(res.body);
+  var body = (res.body.length > 0) ? JSON.parse(res.body) : res.body;
 
   if(res.statusCode !== 200) {
     // Send error back.
@@ -349,7 +370,11 @@ MaaS.prototype._handleResponse = function _handleResponse(err, res, callback) {
     return;
   }
 
-  callback(null, body.data);
+  if(body.hasOwnProperty('data')) {
+    callback(null, body.data);
+  } else {
+    callback(null, body);
+  }
   return;
 };
 
