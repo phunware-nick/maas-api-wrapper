@@ -202,6 +202,24 @@ MaaS.prototype.changePassword = function changePassword(id, oldPwd, newPwd, call
 };
 
 
+
+MaaS.prototype.resetPassword = function resetPassword(email, emailUrl, callback) {
+  email = email || '';
+  emailUrl = emailUrl || 'http://www.example.com/{key}';
+
+  var url = '/users/reset-password';
+
+  var props = {
+    email: email,
+    email_url: emailUrl,
+  };
+
+  this._put(props, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
 // MaaS.prototype.createUser = function createUser(data, callback) {
 //   data = data || {};
 //   callback = callback || noop;
