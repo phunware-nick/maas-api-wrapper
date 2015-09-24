@@ -144,6 +144,18 @@ MaaS.prototype.getUser = function getUser(userId, callback) {
 };
 
 
+MaaS.prototype.getUsers = function getUsers(orgId, callback) {
+  orgId = orgId || 0;
+  callback = callback || noop;
+
+  var url = '/users?org_id=' + orgId;
+
+  this._get(null, url, false, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
+
+
 /**
  * Updates the user's account info
  * @param  {int}      id       User id
@@ -238,36 +250,39 @@ MaaS.prototype.resetPasswordKey = function resetPassword(password, key, callback
 };
 
 
-// MaaS.prototype.createUser = function createUser(data, callback) {
-//   data = data || {};
-//   callback = callback || noop;
+MaaS.prototype.createUser = function createUser(data, callback) {
+  data = data || {};
+  callback = callback || noop;
 
-//   var url = '/users';
+  var url = '/users';
 
-//   var payload = {};
-//   payload.data = data;
+  var payload = {};
+  payload.data = data;
 
-//   // FIXME: Validate the data.
-//   // {
-//   //     "data":
-//   //     {
-//   //         "org_id": <integer>,
-//   //         "role_id": <integer>,
-//   //         "google_id": <string>,
-//   //         "first_name": <string>,
-//   //         "last_name": <string>,
-//   //         "email": <string>,
-//   //         "time_zone": <string>,
-//   //         "orgs": <array>,
-//   //         "clients": <array>,
-//   //         "is_active": <integer>
-//   //     }
-//   // }
-//   //
+  // FIXME: Validate the data.
+  // {
+  //     "data":
+  //     {
+  //         "org_id": <integer>,
+  //         "role_id": <integer>,
+  //         "google_id": <string>,
+  //         "first_name": <string>,
+  //         "last_name": <string>,
+  //         "email": <string>,
+  //         "time_zone": <string>,
+  //         "orgs": <array>,
+  //         "clients": <array>,
+  //         "is_active": <integer>
+  //     }
+  // }
+  //
 
-//   // console.log(data);
-//   this._post(payload, url, true, callback);
-// };
+  // console.log(data);
+  // this._post(payload, url, true, callback);
+  this._post(payload, url, true, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+};
 
 
 /**
@@ -287,8 +302,8 @@ MaaS.prototype.authUser = function authUser(email, password, callback) {
   var data = {
     "provider": "phunware",
     "email": email,
-    "password": password
-    // "expand": [ "orgs", "clients.category" ]
+    "password": password,
+    "expand": [ "orgs", "clients" ]
   };
 
   this._get(data, url, true, (function(err, res) {
