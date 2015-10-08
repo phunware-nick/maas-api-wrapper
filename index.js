@@ -303,7 +303,7 @@ MaaS.prototype.authUser = function authUser(email, password, callback) {
     "provider": "phunware",
     "email": email,
     "password": password,
-    "expand": [ "orgs", "clients" ]
+    "expand": [ "orgs" ]
   };
 
   this._get(data, url, true, (function(err, res) {
