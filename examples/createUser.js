@@ -4,10 +4,11 @@ var keys = require('./keys.js');
 var maas = new MaaS(keys);
 
 var data = {
-  email: 'nloveridge@phunware.com',
-  first_name: 'Nick',
-  last_name: 'Loveridge',
-  org_id: 1,
+  email: 'vkumar1@phunware.com',
+  first_name: 'Vinod',
+  last_name: 'Kumar',
+  password: 'Austin15',
+  org_id: 62,
   is_active: 1,
 };
 
