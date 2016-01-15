@@ -292,19 +292,29 @@ MaaS.prototype.createUser = function createUser(data, callback) {
  * @param  {string}   password
  * @param  {Function} callback
  */
-MaaS.prototype.authUser = function authUser(email, password, callback) {
+MaaS.prototype.authUser = function authUser(email, password, provider, callback) {
   email = email || '';
   password = password || '';
   callback = callback || noop;
 
+  if(typeof provider === 'function') {
+    callback = provider;
+    provider = 'phunware';
+  };
+
   var url = '/users/authenticate';
 
   var data = {
-    "provider": "phunware",
+    "provider": provider,
     "email": email,
-    "password": password,
     "expand": [ "orgs" ]
   };
+
+  if(provider === 'google') {
+    data = _.merge(data, { access_token : password });
+  } else {
+    data = _.merge(data, { password : password });
+  }
 
   this._get(data, url, true, (function(err, res) {
     this._handleResponse(err, res, callback);
