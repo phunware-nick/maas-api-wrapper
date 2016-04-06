@@ -431,12 +431,7 @@ MaaS.prototype._handleResponse = function _handleResponse(err, res, callback) {
     return;
   }
 
-  if(body.hasOwnProperty('data')) {
-    callback(null, body.data);
-  } else {
-    callback(null, body);
-  }
-  return;
+  return callback(null, body);
 };
 
 

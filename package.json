@@ -1,6 +1,6 @@
 {
-  "name": "MaaS-API-Wrapper",
-  "version": "0.0.1",
+  "name": "maaa-api-wrapper",
+  "version": "1.0.0",
   "description": "MaaS module public API endpoints",
   "main": "index.js",
   "directories": {
@@ -14,8 +14,8 @@
     "test": "jasmine"
   },
   "author": "Nick Loveridge",
-  "license": "TBA",
+  "license": "MIT",
   "devDependencies": {
-    "jasmine": "^2.3.2"
+    "jasmine": "2.3.2"
   }
 }
