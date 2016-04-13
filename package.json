@@ -1,6 +1,6 @@
 {
   "name": "maas-api-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MaaS module public API endpoints",
   "main": "index.js",
   "directories": {
