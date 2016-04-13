@@ -14,7 +14,7 @@ var noop    = function(){};
  */
 var MaaS = function MaaS(options) {
   if(!(this instanceof MaaS)) {
-    return new MaaS(username, password, callback);
+    return new MaaS(options);
   }
 
   options = options || {};
@@ -24,7 +24,8 @@ var MaaS = function MaaS(options) {
   this._encryptKey = options.encryptKey || '';
 
   // this._endpoint = 'http://core-api.phunware.com/v1.0';
-  this._endpoint = 'http://core-api-dev.phunware.com/v1.0';
+  // Default to prod.
+  this._endpoint = options._endpoint || 'http://core-api.phunware.com/v1.0';
 
   if(!this._accessKey || !this._signature ||  !this._encryptKey) {
     throw 'Access and signature keys required for MaaS authentication';
