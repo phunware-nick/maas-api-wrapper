@@ -25,7 +25,7 @@ var MaaS = function MaaS(options) {
 
   // this._endpoint = 'http://core-api.phunware.com/v1.0';
   // Default to prod.
-  this._endpoint = options._endpoint || 'http://core-api.phunware.com/v1.0';
+  this._endpoint = options._endpoint || 'https://core-api.phunware.com/v1.0';
 
   if(!this._accessKey || !this._signature ||  !this._encryptKey) {
     throw 'Access and signature keys required for MaaS authentication';
@@ -321,6 +321,37 @@ MaaS.prototype.authUser = function authUser(email, password, provider, callback)
     this._handleResponse(err, res, callback);
   }).bind(this));
 };
+
+
+/**
+ * Retrieve a collection of clients
+ * https://developer.phunware.com/display/DD/Retrieve+a+Collection+of+Clients
+ * @param {int} orgId - ID of the org to get clients for.
+ * @param {string} name - A string containing the rpefix or full name of clients to filter by
+ * @param {array || string} id - Array of client ids to return.
+ * @return {[type]} [description]
+ */
+MaaS.prototype.getClients = function getClients(orgId, name, ids, callback) {
+  orgId = orgId || false; // int.
+  name = name || false; // string
+  ids = ids || false; // string or array
+  callback = callback || noop;
+
+  var url = '/clients';
+
+  var query = {};
+
+  if(orgId) query.org_id = orgId;
+  if(name) query.name = name;
+  if(ids) query.id = ids;
+
+  console.log(query);
+
+  this._get(query, url, true, (function(err, res) {
+    this._handleResponse(err, res, callback);
+  }).bind(this));
+
+}
 
 
 
