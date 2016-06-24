@@ -446,7 +446,7 @@ MaaS.prototype._xAuthStr = function _xAuthStr(payload, method) {
 
   var timestamp = Math.round(Date.now() / 1000);
   var sigStr =  method + '&' + this._accessKey + '&' + timestamp + '&' + payload;
-  var sigHash = crypto.createHmac('sha256', this._signature).update(sigStr).digest('hex');
+  var sigHash = crypto.createHmac('sha256', this._signature).update(new Buffer(sigStr, 'utf8')).digest('hex');
 
   return this._accessKey + ':' + timestamp + ':' + sigHash;
 };
