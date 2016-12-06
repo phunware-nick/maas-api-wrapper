@@ -395,7 +395,7 @@ MaaS.prototype._request = function _request(method, payload, url, encrypt, callb
   }
 
   if(!!payload && method === 'GET') {
-    url += '?' + encodeURI(payload);
+    url += '?' + encodeURIComponent(payload);
   }
 
 
